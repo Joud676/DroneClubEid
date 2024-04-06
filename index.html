@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>معايدة نادي الدرون</title>
+    <style>
+        /* Import the Cairo font from Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+
+        /* Container styling */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+        }
+
+        /* Drone Club Logo styling */
+        #drone-club-logo {
+            width: 300px;
+        }
+
+        /* Button and text field container styling */
+        #form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        /* Button styling */
+        #customize-btn {
+            background-color: #4C0080;
+            font-family: 'Cairo', sans-serif;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        /* Text field styling */
+        #custom-text {
+            padding: 10px;
+            border: 2px solid #4C0080;
+            font-family: 'Cairo', sans-serif;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <img id="drone-club-logo" src="https://github.com/Joud676/DroneClubEid/blob/main/DroneClubLogo.png?raw=true"
+        alt="Drone Club Logo">
+    <div id="form-container">
+        <label for="custom-text"
+            style="text-align: right; width: 220px; height: 0.05px; direction: rtl; font-family: 'Cairo', sans-serif; font-weight: bold;">أدخل
+            اسمك</label>
+    </div>
+        <div id="form-container">
+        <input type="text" id="custom-text" placeholder="الاسم" style="text-align: right;">
+        <button id="customize-btn">صمم معايدتك</button>
+       
+    </div>
+
+    <canvas id="customized-card" width="400" height="200" style= 'margin-top: 10px;'></canvas>
+
+    <button id="download-btn"
+    style="display: none; background-color: #4C0080; color: white; padding: 12px 30px; border-radius: 20px; cursor: pointer; font-size: 18px; margin-top: 10px; font-family: 'Cairo', sans-serif;">تحميل
+    المعايدة</button>
+
+   <script>
+    var canvas = document.getElementById('customized-card');
+    var ctx = canvas.getContext('2d');
+    var img = new Image();
+    
+    var customText = "Your Text Here";
+
+    // Draw the card content
+    function drawCard() {
+        img.onload = function () {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            ctx.font = "bold 27px Cairo, sans-serif"; // Change font to Cairo
+            ctx.fillStyle = "#532C23";
+            ctx.textAlign = "center";
+            ctx.fillText(customText, canvas.width / 2, canvas.height - 525);
+
+            document.getElementById('download-btn').style.display = "block"; 
+        };
+        img.src = "https://raw.githubusercontent.com/Joud676/DroneClubEid/main/Drone%20Club%20Eid.jpg";
+        img.crossOrigin = "anonymous";
+    }
+
+    // Customize the card with user input
+    document.getElementById('customize-btn').addEventListener('click', function () {
+        customText = document.getElementById('custom-text').value;
+        drawCard();
+    });
+
+    // Download the customized image
+    document.getElementById('download-btn').addEventListener('click', function () {
+        var dataURL = canvas.toDataURL("image/jpg");
+
+        var a = document.createElement('a');
+        a.href = dataURL;
+        a.download = 'معايدة ' + customText + '.jpeg';
+        a.click();
+    });
+</script>
+</body>
+
+</html>
